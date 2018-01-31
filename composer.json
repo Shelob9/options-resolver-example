@@ -1,0 +1,20 @@
+{
+    "name": "shelob9/options-resolver-example",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Josh Pollock",
+            "email": "josh@calderawp.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "symfony/options-resolver": "^4.1@dev"
+    },
+    "autoload" : {
+        "psr-4": {
+            "Example\\": "src"
+        }
+    }
+}

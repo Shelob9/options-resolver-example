@@ -1,0 +1,1 @@
+Example WordPress plugin showing how to use the [OptionsResolver Component](https://symfony.com/doc/current/components/options_resolver.html) in a WordPress plugin.
