@@ -10,9 +10,10 @@ abstract class Posts
 {
 
     /**
-     * @var \WP_Query
+     * @var array
      */
-    protected $WP_Query;
+    protected $args;
+
     /**
      * @var OptionsResolver
      */
@@ -20,11 +21,11 @@ abstract class Posts
 
     /**
      * PopularPosts constructor.
-     * @param \WP_Query $WP_Query
+     * @param array $args Optional. WP_Query arguments
      */
-    public function __construct( \WP_Query $WP_Query )
+    public function __construct( array $args = []  )
     {
-        $this->WP_Query = $WP_Query;
+        $this->args = $args;
         $this->optionsResolver = new OptionsResolver();
         $this->initOptions();
     }
@@ -34,23 +35,17 @@ abstract class Posts
      */
     abstract protected function initOptions();
 
-    /**
-     * Do query with set args
-     *
-     * @return $this
-     */
-    public function doQuery()
-    {
-        $this->WP_Query->query( $this->getArgs() );
-        return $this;
-    }
 
     /**
+     * Get query
+     *
+     * Causes query to run and args to be parsed
+     *
      * @return \WP_Query
      */
     public function getQuery()
     {
-        return $this->WP_Query;
+        return new \WP_Query( $this->args );
     }
 
     /**
@@ -60,14 +55,7 @@ abstract class Posts
      */
     protected function getArgs()
     {
-        //Get the args used when creating the WP_Query object
-        $args = $this->getQuery()->query;
-        //If no args passed then create an empty array so the error is meaningful
-        if (!is_array($args)) {
-            $args = [];
-        }
-
-        return $this->optionsResolver->resolve($args);
+        return $this->optionsResolver->resolve($this->args);
     }
 
 }
